@@ -1,0 +1,62 @@
+{% extends 'fileupload/base.html' %}
+{% load static %}
+
+{% block sidecontent %}
+<p> I am a sidebar  </p>
+{% endblock %}
+
+
+{% block pageheader %}
+<div class="head">
+    <h4> {{ qs.process_department|upper|default_if_none:"DEPARTMENT" }} FILE </h4>
+</div>
+<div  class="form">
+<h5 style="color:green;">{{note}}</h5>
+<h5 style="color:red;">{{error}}</h5>
+{% endblock %}
+
+{% block content %}
+
+<div id="form_container" >
+
+  <div class="hide">
+    Upload Status : <p id="uploaded_status" >0</p>
+  </div>
+  <form enctype="multipart/form-data" method="post" action={% url 'submit_form' %}>
+
+    <!-- <label for="process_department">process_department : </label> -->
+    <input id="process_department" type="text" name="process_department" hidden value='{{qs.process_department}}' >
+    <input id="process_ent_id" type="text" name="process_ent_id" hidden value='{{qs.process_ent_id}}' >
+    <input id="user" type="text" name="user" hidden value='{{qs.user}}' >
+    <input id="project" type="text" name="project" hidden value='{{qs.project}}' >
+    <input id="asset" type="text" name="asset" hidden value='{{qs.asset}}' >
+    <input id="version" type="text" name="version" hidden value='{{qs.version}}' >
+    <input id="project_code" type="text" name="project_code" hidden value='{{qs.project_code}}' >
+    <input id="asset_code" type="text" name="asset_code" hidden value='{{qs.asset_code}}' >
+
+    {% csrf_token %}
+    {{ submitForm.as_p }}
+
+    <button type="submit" value="Submit" class="save btn btn-default">SUBMIT</button>
+
+  </form>
+</div>
+
+
+
+
+
+
+<!-- <br/><br/><br/><br/> -->
+<!-- {{qs}} -->
+
+ <!-- <h5> process_department : {{qs.process_department}} </h5>
+ <h5> process_ent_id : {{qs.process_ent_id}} </h5>
+ <h5> user : {{qs.user}} </h5>
+ <h5> project :  {{qs.project}} </h5>
+ <h5> asset :  {{qs.asset}} </h5>
+ <h5> version :  {{qs.version}} </h5>
+ <h5> Submission Date :  {{qs.submission_date}} </h5> -->
+
+</div>
+{% endblock %}
